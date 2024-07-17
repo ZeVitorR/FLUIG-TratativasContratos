@@ -1,0 +1,359 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="https://thcm-my.sharepoint.com/:u:/g/personal/jose_vitor_thcm_com_br/EaxVd4rLLQ1BuWEt_2XReD0BSCdhbv2AiVgQ04Hee7qIBw?e=LpcLJS"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+	<script type="text/javascript" src="FLUIGIP.js"></script>
+	<script type="text/javascript" src="ContratoAnalise.js"></script>
+	<script type="text/javascript" src="api.js"></script>
+	<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+
+</head>
+<body>
+	<div class="fluig-style-guide"><!--Nescessário para manter o padrão do fluig-->
+		
+		<form name="form" role="form"><!--Nescessário por ser um formulario-->
+			<input type="text" id="pesquisa" name="pesquisa" hidden>
+			<input type="text" id="numProcess" name="numProcess" hidden>
+			<div id="divCenter"><!--Div usada para deixar i conteuso do centro-->
+				<div class="panel panel-default"><!--Div usado para definir o painel do formulario-->
+					<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+						<div id="divCenter2">						
+							<img src="./logo.png" alt="logo da thcm" width="25%"/><!--Colocando o logo da THCM-->
+						</div>
+					</div>
+					<div class="panel-body"><!--Parte referente ao corpo do formulario ou seja onde vai as perguntas-->
+						
+						<input type="text" name="textoLabel" id="textoLabel" hidden>
+						<fieldset id="inicial">
+							<textarea id="histPC" name="histPC" hidden></textarea>
+							<div class="panel panel-primary">
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									Informações do Cliente
+								</div>
+								<div class="panel-body">
+									<div class="row form-group"><!--Definido a div da linha da pergunda-->
+										<div class="col-md-2"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+											<label class="control-label" for="codigoCliente">Código do Cliente</label>
+											<input type="text" id="codigoCliente" name="codigoCliente" class="form-control form-control-sm"
+												data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" maxlength="6"
+												oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
+												onblur="makeAPICall()">
+										</div>
+										<div class="col-md-10">
+											<label class="control-label" for="nomeCliente">Nome do Cliente</label>
+											<div class="input-group">
+												
+												<input type="text" id="nomeCliente" name="nomeCliente" class="form-control form-control-sm"
+												data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+												<span id="busca" class="input-group-addon" onclick="makeAPICallCliente()"><i class="flaticon flaticon-search icon-sm" aria-hidden="true"></i></span>
+											</div>	
+										</div>
+									</div>
+									<div class="row form-group"><!--Definido a div da linha da pergunda-->
+										<div class="col-md-3"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+											<label class="control-label" for="profissaoCliente">Profissão</label>
+											<input type="text" id="profissaoCliente" name="profissaoCliente" class="form-control form-control-sm"
+												data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+												oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');">
+										</div>
+										<div class="col-md-5">
+											<label class="control-label" for="Email">Email</label>
+											<input type="text" id="Email" name="Email" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="Email">Motivo</label>
+											<select name="motivo" id="motivo" class="form-control"
+											data-fluig-write="0,2" data-fluig-state-valid="0,2" data-fluig-required="true">
+												<option value="">Selecione uma opção</option>
+												<option value="Inadimplência">Inadimplência</option>
+												<option value="Rescisão Não Aceita">Rescisão Não Aceita</option>
+												<option value="Risco Judicial">Risco Judicial</option>
+												<option value="Outro">Outro - Histórico</option>	
+											</select>
+										</div>
+									</div>
+									<div class="row form-group"><!--Definido a div da linha da pergunda-->
+										<div class="col-md-2"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+											<label class="control-label" for="rgCliente">RG do Cliente</label>
+											<input type="text" id="rgCliente" name="rgCliente" class="form-control form-control-sm"
+												data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" 
+												onblur="">
+										</div>
+										<div class="col-md-2"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+											<label class="control-label" for="oeRG">Orgão Expedidor</label>
+											<input type="text" id="oeRG" name="oeRG" class="form-control form-control-sm"
+												data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" maxlength="6"
+												onblur="">
+										</div>
+										<div class="col-md-3">
+											<label class="control-label" for="cpfCliente">CPF do Cliente</label>
+											<input type="text" id="cpfCliente" name="cpfCliente" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+										</div>
+										<div class="col-md-2">
+											<label class="control-label" for="Tel">Telefone</label>
+											<input type="text" id="Tel" name="Tel" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+										</div>
+										<div class="col-md-3">
+											<label class="control-label" for="Cel">Celular</label>
+											<input type="text" id="Cel" name="Cel" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+										</div>
+									</div>
+									<div class="panel panel-primary" id="EnderecosCliente">
+										<div class="panel-heading" ><!--Div para definir o cabeçalho do formulario-->
+											Endereços
+										</div>
+										<div class="panel-body" >
+											<div class="panel panel-default" id="EnderecoResidencial" style="border-color: #000000;">
+												<div class="panel-heading" style="border-color: #000000;"><!--Div para definir o cabeçalho do formulario-->
+													<h3 class="panel-title">Endereço Residencial</h3>
+												</div>
+												<div class="panel-body" style="border-color: #000000;">
+													<div class="row form-group-sm">
+														<div class="col-md-2"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+															<label class="control-label" for="CEP">CEP</label>
+															<input type="text" id="CEP" name="CEP" class="form-control form-control-sm input-sm"
+																data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+														</div>
+														<div class="col-md-8"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+															<label class="control-label" for="cidade">Cidade</label>
+															<input type="text" id="cidade" name="cidade" class="form-control form-control-sm input-sm"
+																data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2">
+														</div>
+														<div class="col-md-2">
+															<label class="control-label" for="estado">Estado</label>
+															<input type="text" id="estado" name="estado" class="form-control form-control-sm input-sm"
+															data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+														</div>
+													</div>
+													<div class="row form-group-sm">
+														<div class="col-md-8">
+															<label class="control-label" for="endereco">Endereço</label>
+															<input type="text" id="endereco" name="endereco" class="form-control form-control-sm input-sm" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+															data-fluig-required="true" ><!--Parte responsável por deixar o campo obrigatório-->
+														</div>
+														<div class="col-md-4">
+															<label class="control-label" data-fluig-write="0,2" data-fluig-state-valid="0,2" for="Bairro">Bairro</label>
+															<input type="text" id="Bairro" name="Bairro" class="form-control form-control-sm input-sm" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+															data-fluig-required="true"  analytics="true" gooddataid="1">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default" id="EnderecoComercial" style="border-color: #000000;">
+												<div class="panel-heading" style="border-color: #000000;"><!--Div para definir o cabeçalho do formulario-->
+													<h3 class="panel-title">Endereço Comercial</h3>
+												</div>
+												<div class="panel-body" style="border-color: #000000;">
+													<div class="row form-group-sm">
+														<div class="col-md-2"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+															<label class="control-label" for="CEPCOM">CEP</label>
+															<input type="text" id="CEPCOM" name="CEPCOM" class="form-control form-control-sm input-sm"
+															data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+														</div>
+														<div class="col-md-8"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+															<label class="control-label" for="cidadeCOM">Cidade</label>
+															<input type="text" id="cidadeCOM" name="cidadeCOM" class="form-control form-control-sm input-sm"
+															data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+														</div>
+														<div class="col-md-2">
+															<label class="control-label" for="estadoCOM">Estado</label>
+															<input type="text" id="estadoCOM" name="estadoCOM" class="form-control form-control-sm input-sm"
+															data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+														</div>
+													</div>
+													<div class="row form-group-sm">
+														<div class="col-md-8">
+															<label class="control-label" for="enderecoCOM">Endereço</label>
+															<input type="text" id="enderecoCOM" name="enderecoCOM" class="form-control form-control-sm input-sm" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+															><!--Parte responsável por deixar o campo obrigatório-->
+														</div>
+														<div class="col-md-4">
+															<label class="control-label" data-fluig-write="0,2" data-fluig-state-valid="0,2" for="Bairro">Bairro</label>
+															<input type="text" id="BairroCOM" name="BairroCOM" class="form-control form-control-sm input-sm" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+															 analytics="true" gooddataid="1">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default" id="EnderecoCobrança" style="border-color: #000000;">
+												<div class="panel-heading" style="border-color: #000000;"><!--Div para definir o cabeçalho do formulario-->
+													<h3 class="panel-title">Endereço de Cobrança</h3>
+												</div>
+												<div class="panel-body" style="border-color: #000000;">
+													<div class="row form-group-sm">
+														<div class="col-md-2"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+															<label class="control-label" for="CEPCOB">CEP</label>
+															<input type="text" id="CEPCOB" name="CEPCOB" class="form-control form-control-sm input-sm"
+															data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+														</div>
+														<div class="col-md-8"><!--Definindo o tamanho que vai ter o campo podendo ser de 1 a 18-->
+															<label class="control-label" for="cidadeCOB">Cidade</label>
+															<input type="text" id="cidadeCOB" name="cidadeCOB" class="form-control form-control-sm input-sm"
+															data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+														</div>
+														<div class="col-md-2">
+															<label class="control-label" for="estadoCOB">Estado</label>
+															<input type="text" id="estadoCOB" name="estadoCOB" class="form-control form-control-sm input-sm"
+															data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+														</div>
+													</div>
+													<div class="row form-group-sm">
+														<div class="col-md-8">
+															<label class="control-label" for="enderecoCOB">Endereço</label>
+															<input type="text" id="enderecoCOB" name="enderecoCOB" class="form-control form-control-sm input-sm" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+															><!--Parte responsável por deixar o campo obrigatório-->
+														</div>
+														<div class="col-md-4">
+															<label class="control-label" data-fluig-write="0,2" data-fluig-state-valid="0,2" for="BairroCOB">Bairro</label>
+															<input type="text" id="BairroCOB" name="BairroCOB" class="form-control form-control-sm input-sm" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+															analytics="true" gooddataid="1">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									Informações do Produto 
+								</div>
+								<div class="panel-body">
+									<div class="row form-group">
+										<div class="col-md-2">
+											<label class="control-label" for="codigoFilial">Código da Filial</label>
+											<input type="text" id="codigoFilial" name="codigoFilial" class="form-control form-control-sm" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+											data-fluig-required="true" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"><!--Parte responsável por deixar o campo obrigatório-->
+										</div>
+										<div class="col-md-7">
+											<label class="control-label" data-fluig-write="0,2" data-fluig-state-valid="0,2" for="razaoSocial">Razão Social</label>
+											<input type="text" id="razaoSocial" name="razaoSocial" class="form-control form-control-sm" data-fluig-write="0,2" data-fluig-state-valid="0,2"
+											data-fluig-required="true" onKeyUP="this.value = this.value.toUpperCase();" analytics="true" gooddataid="1">
+										</div>
+										<div class="col-md-3">
+											<label class="control-label" for="CNPJ">CNPJ</label>
+											<input type="text" id="CNPJ" name="CNPJ" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" >
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6" id="divEmpreendimento">
+											<label class="control-label" for="empreendimento">Empreendimento</label>
+											<input type="text" id="empreendimento" data-fluig-write="0,2" data-fluig-state-valid="0,2" name="empreendimento" class="form-control form-control-sm"
+											data-fluig-required="true" onKeyUP="this.value = this.value.toUpperCase();" analytics="true" gooddataid="1">
+										</div>
+										<div class="col-md-3">
+											<label class="control-label" for="lote">Lote</label>
+											<input type="text" id="lote" name="lote" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2" maxlength="3"
+											oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');">
+										</div>
+										<div class="col-md-3">
+											<label class="control-label" for="quadra">Quadra</label>
+											<input type="text" id="quadra" name="quadra" class="form-control form-control-sm" maxlength="3"
+											data-fluig-required="true" data-fluig-write="0,2" data-fluig-state-valid="0,2">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6" id="divEmpreendimento">
+											<label class="control-label" for="CadMun">Cadastro Municipal</label>
+											<input type="text" id="CadMun" data-fluig-write="0,2" data-fluig-state-valid="0,2" name="CadMun" class="form-control form-control-sm"
+											analytics="true" gooddataid="1">
+										</div>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset id="cartorio">
+							<div class="panel panel-primary">
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									Informações do Cartório 
+								</div>
+								<div class="panel-body">
+									<div class="row form-group">
+										<div class="col-md-5" id="divEmpreendimento">
+											<label class="control-label" for="NumeroRegistro">Número do Registro (Cartório)</label>
+											<input type="text" id="NumeroRegistro" data-fluig-write="0,2,3" data-fluig-state-valid="0,2,3" name="NumeroRegistro" class="form-control form-control-sm"
+											analytics="true" gooddataid="1">
+										</div>
+										<div class="col-md-3" id="divEmpreendimento">
+											<label class="control-label" for="DataRegistro">Data do Registro </label>
+											<input type="date" id="DataRegistro" data-fluig-write="0,2,3" data-fluig-state-valid="0,2,3" name="DataRegistro" class="form-control form-control-sm"
+											analytics="true" gooddataid="1">
+										</div>
+										<div class="col-md-4" id="divEmpreendimento">
+											<label class="control-label" for="DataRegistro">Resposta Cartório </label>
+											<select name="respostaCartorio" id="respostaCartorio" class="form-control"
+											data-fluig-write="2" data-fluig-state-valid="3" data-fluig-required="true">
+												<option value="">Selecione uma opção</option>
+												<option value="Pagamento">Pagamento no Cartório</option>
+												<option value="Sem resposta">Sem resposta do cliente</option>
+												<option value="Não Localizada">Não Localizado</option>									
+											</select>
+										</div>
+									</div>
+								</div>									
+							</div>
+						</fieldset>
+						<fieldset id="Solicitacao">
+							<div class="panel panel-primary">
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									Solicitação
+								</div>
+								<div class="panel-body" id="hist">
+									<h3>Para obter mais informação sobre o processo acesse:</h3>
+									<p id="solicita"></p>
+								</div>									
+							</div>
+						</fieldset>
+						<fieldset id="historico">
+							<div class="panel panel-primary">
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									Histórico do Processo
+								</div>
+								<div class="panel-body" id="hist">
+								</div>									
+							</div>
+						</fieldset>
+					</div>
+				</div>	
+			</div>
+		</form>
+	</div>
+	<div class="janela-dados" id="janela-modal1">
+		<div class="dados">
+			<h3 id="TitModal"></h1>
+			<select name="produtos" id="produtos" class="sel" >
+			</select>
+			<div>
+				<button class="ok" onclick="selecionaProduto()">OK</button>
+				<button class="cancelar" onclick="cancelar()">Cancelar</button>
+			</div>
+			
+		</div>				
+	</div>
+	<div class="janela-dados" id="janela-modal2">
+		<div class="dados">
+			<h3 id="TitModal2"></h1>
+			<select name="selcliente" id="selcliente" class="sel" >
+			</select>
+			<div>
+				<button class="ok" onclick="selecionaCliente()">OK</button>
+				<button class="cancelar" onclick="cancelar2()">Cancelar</button>
+			</div>
+			
+		</div>				
+	</div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+@media screen and (max-width: 900px) {
+  div#divCenter{
+      width: 100%;
+      margin: 0 auto;
+  }
+  .dados{
+    width: 60%;
+    height: fit-content;
+    background-color: #ffffff96;
+    backdrop-filter: blur(10px);
+    padding: 25px 50px;
+    border-radius: 20px;
+}
+}
+@media screen and (min-width: 901px) and (max-width: 1400px){
+  div#divCenter{
+      width: 90%;
+      margin: 0 auto;
+  }
+  .dados{
+    width: 50%;
+    height: fit-content;
+    background-color: #ffffff96;
+    backdrop-filter: blur(10px);
+    padding: 25px 50px;
+    border-radius: 20px;
+}
+}
+@media screen and (min-width: 1401px){
+  div#divCenter{
+      width: 75%;
+      margin: 0 auto;
+  }
+  .dados{
+    width: 30%;
+    height: fit-content;
+    background-color: #ffffff96;
+    backdrop-filter: blur(10px);
+    padding: 25px 50px;
+    border-radius: 20px;
+  }
+}
+@media print {
+  fieldset#historico{
+    display: block;
+    position: relative;
+  }
+}
+
+div#EnderecosCliente input{
+  size: 10px;
+}
+
+div#divCenter2{
+    text-align: center;
+}
+
+#X{
+    margin-bottom: 2.25%;
+}
+.janela-dados{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: #00000080;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+select.sel {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('path-to-your-icon.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: border-color 0.25s ease-in-out;
+    margin-bottom: 5%;
+  }
+  
+  select.sel:hover {
+    border-color: #aaa;
+  }
+  
+  select.sel:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+button.ok {
+    padding: 10px 20px;
+    font-size: 16px;
+    width: 30%;
+    font-weight: bold;
+    color: white;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  
+  button.ok:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  button.ok:active {
+    transform: translateY(2px);
+  }
+  
+  /* Adding a focus style for accessibility */
+  button.ok:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+  }
+
+button.cancelar {
+    padding: 10px 20px;
+    font-size: 16px;
+    width:30%;
+    font-weight: bold;
+    color: white;
+    background-color: #ff0000; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  
+  button.cancelar:hover {
+    background-color: #f31111;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  button.cancelar:active {
+    transform: translateY(2px);
+  }
+  
+  /* Adding a focus style for accessibility */
+  button.cancelar:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+  }
+
+span#busca{
+  cursor:pointer;
+}
+
+span#hover{
+  background-color: #aaa;
+}
+#historico{
+  display: none;
+}
